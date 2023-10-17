@@ -21,6 +21,7 @@
     <java.version>17</java.version>
     <rest.starter.version>0.0.1-SNAPSHOT</rest.starter.version>
     <event.starter.version>0.0.1-SNAPSHOT</event.starter.version>
+    <csv.sdk.version>0.0.1-SNAPSHOT</csv.sdk.version>
   </properties>
 
   <dependencies>
@@ -71,6 +72,11 @@
       <groupId>warehouse.com</groupId>
       <artifactId>warehouse-event-starter</artifactId>
       <version>${event.starter.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>warehouse.com</groupId>
+      <artifactId>warehouse-csv-sdk</artifactId>
+      <version>${csv.sdk.version}</version>
     </dependency>
   </dependencies>
 

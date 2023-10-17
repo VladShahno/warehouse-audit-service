@@ -1,0 +1,13 @@
+server:
+  servlet.contextPath: /audit
+  port: 8081
+
+spring:
+  data:
+    mongodb:
+      uri: mongodb://${MONGODB_USER}:${MONGODB_PWD}@${MONGODB_HOST:localhost:27017}/${MONGODB_NAME:auditEvents}?${MONGODB_PARAMETERS:}
+
+csv:
+  response-headers: ${CSV_EXPORT_RESPONSE_HEADERS:initiator_id,action,description,timestamp,entity_id,entity_type,entity_name}
+  response-fields: ${CSV_EXPORT_RESPONSE_FIELDS:initiatorId,action,description,timestamp,entityId,entityType,entityName}
+  export-csv-limit: 10000
