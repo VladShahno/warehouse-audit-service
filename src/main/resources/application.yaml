@@ -3,6 +3,29 @@ server:
   port: 8081
 
 spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BROKER_URL:localhost:29092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: ${random.uuid}
+      key-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+      enable-auto-commit: true
+      auto-commit-interval: 100ms
+      max-poll-records: ${KAFKA_MAX_POLL_RECORDS:500}
+      properties:
+        max-poll-interval-ms: ${KAFKA_MAX_POLL_INTERVAL_MS:300000}
+        spring:
+          deserializer:
+            key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
+            value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
+          json:
+            trusted.packages: warehouse.com.eventstarter.model
+
+  main:
+    allow-bean-definition-overriding: true
   data:
     mongodb:
       uri: mongodb://${MONGODB_USER}:${MONGODB_PWD}@${MONGODB_HOST:localhost:27017}/${MONGODB_NAME:auditEvents}?${MONGODB_PARAMETERS:}
@@ -11,3 +34,13 @@ csv:
   response-headers: ${CSV_EXPORT_RESPONSE_HEADERS:initiator_id,action,description,timestamp,entity_id,entity_type,entity_name}
   response-fields: ${CSV_EXPORT_RESPONSE_FIELDS:initiatorId,action,description,timestamp,entityId,entityType,entityName}
   export-csv-limit: 10000
+
+kafka:
+  consumer:
+    fixed-backoff:
+      interval: ${KAFKA_CONSUMER_FIXED_BACKOFF_INTERVAL:2000}
+      max-failure: ${KAFKA_CONSUMER_FIXED_BACKOFF_INTERVAL_MAX_FAILURE:5}
+  topics:
+    audit:
+      name: ${AUDIT_EVENT:warehouse-audit-event}
+      event-class: AuditEvent

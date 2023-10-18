@@ -7,13 +7,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import warehouse.com.auditservice.configuration.CsvProperties;
-import warehouse.com.auditservice.configuration.EntityTypeConfig;
 import warehouse.com.auditservice.model.ActivityEvent;
 import warehouse.com.auditservice.model.dto.ActivityEventDto;
 import warehouse.com.auditservice.model.dto.ActivityEventRequest;
@@ -23,12 +21,10 @@ import warehouse.com.csv.service.CsvService;
 
 @Slf4j
 @Service
-@EnableConfigurationProperties({EntityTypeConfig.class, CsvProperties.class})
 @RequiredArgsConstructor
 public class ActivityEventService {
 
   private final CsvService csvService;
-  private final EntityTypeConfig mappingConfig;
   private final CsvProperties csvProperties;
   private final ActivityEventRepository activityEventRepository;
 

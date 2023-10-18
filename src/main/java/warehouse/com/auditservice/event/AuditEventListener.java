@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import warehouse.com.auditservice.configuration.EntityTypeConfig;
 import warehouse.com.auditservice.model.ActivityEvent;
 import warehouse.com.auditservice.service.ActivityEventService;
 import warehouse.com.eventstarter.annotation.EventListener;
@@ -19,7 +18,6 @@ import warehouse.com.eventstarter.model.AuditEvent;
 @RequiredArgsConstructor
 public class AuditEventListener {
 
-  private final EntityTypeConfig entityTypeConfig;
   private final ActivityEventService activityEventService;
 
   @EventListener(value = "${kafka.topics.audit.name}", groupId = "audit-services-group")

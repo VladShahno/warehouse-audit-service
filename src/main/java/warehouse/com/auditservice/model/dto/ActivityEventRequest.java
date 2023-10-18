@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 @Schema(description = "Represents an object that contains query parameters.")
 public class ActivityEventRequest {
+
   @Schema(description = "Receives any action's names and its' parts, it is a case insensitive, also supports special characters '*' and '?'", example = "Update")
   private String actionSearch;
   @Schema(description = "Must match entity type.", example = "USER")
