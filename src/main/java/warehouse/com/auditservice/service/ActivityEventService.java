@@ -47,6 +47,8 @@ public class ActivityEventService {
     var activityEvents = activityEventRepository.findAllForCsv(request, bodyActivityEventRequest,
         request.getEntityType(), csvProperties.getExportCsvLimit(), sort);
 
+    log.debug("Exporting activityEvents with {}", keyValue("activityEventIds",
+            activityEvents.stream().map(ActivityEvent::getActivityEventId).toList()));
     csvService.exportDataToWriter(writer, activityEvents,
         csvProperties.getResponseHeaders(), csvProperties.getResponseFields());
   }
